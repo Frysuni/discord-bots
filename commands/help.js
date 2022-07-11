@@ -4,6 +4,7 @@ const { MessageEmbed } = require('discord.js');
 const helpEmbed = new MessageEmbed()
     .setColor('#fecc4e')
     .setTitle('Общая информация о боте')
+    .setURL('https://github.com/Frysuni/HopaBot')
     .setAuthor({ name: 'Бот Норы', iconURL: 'https://files.fryshost.ru/assets/Hopa.png' })
     .setDescription(`Версия: ${process.env.VERSION}`)
     .addFields(

@@ -2,8 +2,8 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
     data: new SlashCommandBuilder()
-		.setName('reactrole')
-		.setDescription('Reaction Roles на максималках')
+        .setName('reactrole')
+        .setDescription('Reaction Roles на максималках')
         .addStringOption(option => option
             .setName('idреакции')
             .setDescription('Вставьте ID реакции, которую хотите использовать как кнопку для получения роли.')

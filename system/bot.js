@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const { statusrotate } = require('../utilities/statusrotate.js');
 const { processing } = require('./commands.js');
 const { Client, Intents } = require('discord.js');
 const client = new Client({
@@ -12,20 +13,10 @@ client.on('interactionCreate', async interaction => {
 		await processing(interaction);
 	}
 });
-const allactivities = [
-	{ name: 'Hope c RR ботом', type: 'COMPETING' },
-	{ name: 'новые предложения', type: 'WATCHING' },
-	{ name: '/help', type: 'LISTENING' },
-];
-let i = 0;
-client.on('ready', () => {
+
+client.once('ready', () => {
 	console.log('Оо даа, Маквин готов!');
-	setInterval(() => {
-		i = (i++) % allactivities.length;
-		const activities = allactivities[i];
-	
-		client.user.setActivity(activities.name, { type: activities.type });
-	}, 3000);
+	statusrotate(client);
 });
 
 client.login(process.env.TOKEN);
