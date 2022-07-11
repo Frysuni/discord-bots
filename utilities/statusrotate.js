@@ -11,11 +11,8 @@ async function changestatus(client) {
     } else {
         index = 0;
     };
-    
-
     const setType = list['type'+index]
     const setName = list['name'+index]
-    console.log(setType, setName, index);
     await client.user.setPresence({ activities: [{ type: setType, name: setName }], status: 'idle' });
 
 }
