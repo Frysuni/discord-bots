@@ -1,8 +1,9 @@
 const { help } = require('../commands/help.js');
 const { reactrole } = require('../commands/reactrole.js');
 const { ping } = require('../commands/ping.js');
+
 module.exports = {
-    async processing(interaction) {
+    async commandProcess(interaction) {
         if (interaction.commandName === 'help') {
             help(interaction);
         }
