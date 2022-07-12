@@ -12,9 +12,10 @@ const helpEmbed = new MessageEmbed()
         { name: '\u200B', value: '> **Админивсраторские команды:**' },
         { name: '`/reactrole`', value: 'Нахер Reaction Roles с сервера, я лучше него! ( *В разработке* )' },
         { name: '\u200B', value: '> **Ожидает реализации:**' },
-        { name: '`Мут, кик, бан`', value: 'Бесполезные команды ( *в 1.1.x* )' },
-        { name: '`Расширенный аудит`', value: 'Еще одна бесполезная хуйня ( *в 1.2.x* )' },
-        { name: '`/reactrole`', value: 'Действительно сложная задача, как оказалось ( *в 1.3.x* )' },
+        { name: '`Система рангов`', value: 'Надо потрудиться' },
+        { name: '`Расширенный аудит`', value: 'Сложно, бесполезно' },
+        { name: '`/reactrole`', value: 'Действительно сложная задача, как оказалось' },
+        { name: '`Музыкальный бот`', value: 'Там вообще ахуёк!' },
     )
     .setFooter({ text: 'by Frys', iconURL: 'https://files.fryshost.ru/assets/FrysHostMini.png' })
     .setThumbnail('https://files.fryshost.ru/assets/somecode.png');

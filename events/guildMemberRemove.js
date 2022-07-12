@@ -24,5 +24,5 @@ const timeHumanize = (timestamp) => {
 
 module.exports = async (client, member) => {
     const my = timeHumanize(member.joinedTimestamp);
-    client.channels.cache.get(process.env.LEAVE_MSG_CHANNEL).send(`<@${member.user.id}> покинул **Нору**. Он пробыл с нами ${my.years}${my.mounths}${my.days}${my.hours}${my.minutes}${my.seconds} секунд.`);
+    client.channels.cache.get(process.env.LEAVE_MSG_CHANNEL_ID).send(`<@${member.user.id}> покинул **Нору**. Он пробыл с нами ровно ${my.years}${my.mounths}${my.days}${my.hours}${my.minutes}${my.seconds} секунд.`);
 }
