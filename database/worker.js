@@ -40,6 +40,9 @@ const suggestions = sequelize.define('suggestions', {
     users: {
         type: Sequelize.INTEGER,
     },
+    owner: {
+        type: Sequelize.INTEGER,
+    },
 })
 
 module.exports = {reactrole, suggestions}

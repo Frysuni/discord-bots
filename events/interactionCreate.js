@@ -1,6 +1,5 @@
-const { format } = require("sequelize/types/utils.js");
 const { commandProcess } = require("../utilities/commander.js");
-const { button } = require("../utilities/suggestions.js");
+const { button, form } = require("../utilities/suggestions.js");
 
 module.exports = async (client, interaction) => {
 	if (interaction.isCommand) {

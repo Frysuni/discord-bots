@@ -27,7 +27,7 @@ const sug_topic = new TextInputComponent()
     .setCustomId('sug_topic')
     .setLabel('К чему относится предложение?')
     .setStyle('SHORT')
-    .setPlaceholder('Например: бот, сервер, ивент')
+    .setPlaceholder('Например: Бот, Сервер, Ивент')
     .setRequired(true);
 const sug_name = new TextInputComponent()
     .setCustomId('sug_name')
@@ -44,7 +44,7 @@ const sug_nameRow = new MessageActionRow().addComponents(sug_name);
 const sug_descRow = new MessageActionRow().addComponents(sug_desc);
 suggest.addComponents(sug_topicRow, sug_nameRow, sug_descRow);
 
-
+let sugEmbed = new MessageEmbed()
 
 module.exports =  {
     async start(client, message) {
@@ -60,5 +60,14 @@ module.exports =  {
 
     async form(client, interaction) {
 
+        sugEmbed.setAuthor({ name: `Предложение от ${interaction.member.user.username}`, iconURL: `https://cdn.discordapp.com/avatars/${interaction.member.user.id}/${interaction.member.user.avatar}.webp` })
+        .setTitle(interaction.fields.getTextInputValue('sug_topic'))
+        .setColor('#fecc4e')
+        .addFields(
+            { name: '> **Название:**', value: interaction.fields.getTextInputValue('sug_name') },
+            { name: '> **Описание:**', value: interaction.fields.getTextInputValue('sug_desc') },
+        );
+        client.channels.cache.get(process.env.SUGGESTIONS_CHANNEL_ID).send({ embeds: [sugEmbed] });
+        sugEmbed = new MessageEmbed();
     }
 };
