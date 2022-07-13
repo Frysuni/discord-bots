@@ -1,4 +1,4 @@
-module.exports = (client) => {
+module.exports = async (client) => {
     client.once('ready', ()=>require('./ready.js')(client));
     client.on('interactionCreate', (interaction)=>require('./interactionCreate.js')(client, interaction));
     client.on('guildMemberRemove', (member)=>require('./guildMemberRemove.js')(client, member));

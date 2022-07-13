@@ -1,8 +1,8 @@
-const { reactrole, suggestions } = require("../database/worker");
-const { statusrotate } = require("../utilities/statusrotate");
+const { reactrole, suggestions } = require("../database/worker.js");
+const { statusrotate } = require("../utilities/statusrotate.js");
 
 module.exports = async (client) => { 
-	reactrole.sync();
+	//reactrole.sync();
 	suggestions.sync();
 
 	statusrotate(client);

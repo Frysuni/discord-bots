@@ -20,7 +20,7 @@ const reactrole = sequelize.define('reactrole', {
     message: Sequelize.STRING,
     users: {
         type: Sequelize.ARRAY(Sequelize.STRING),
-    }
+    },
 });
 
 const suggestions = sequelize.define('suggestions', {
@@ -28,6 +28,14 @@ const suggestions = sequelize.define('suggestions', {
         type: Sequelize.INTEGER,
 		unique: true,
         primaryKey: true,
+    },
+    message: {
+        type: Sequelize.INTEGER,
+		unique: true,
+        primaryKey: true,
+    },
+    content: {
+        type: Sequelize.STRING,
     },
     up: {
         type: Sequelize.INTEGER,
@@ -38,10 +46,11 @@ const suggestions = sequelize.define('suggestions', {
         defaultValue: 0,
     },
     users: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.ARRAY(Sequelize.STRING),
     },
     owner: {
         type: Sequelize.INTEGER,
+        primaryKey: true,
     },
 })
 

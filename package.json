@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Scripts is working!\"",
     "packages": "npm install",
-    "start": "node /system/debployslash.js && node ./system/bot.js",
+    "start": "node /system/deployslash.js && node ./system/bot.js",
     "startonly": "node ./system/bot.js",
     "pm2": "npm install --global pm2 && pm2 start ./system/bot.js --name \"HopaBot\" && pm2 startup && pm2 save",
     "install": "npm run packages && mv ./.env.example ./.env && npm run pm2 && echo \"Успешно, используйте npm start\""
