@@ -23,4 +23,7 @@ const createRecord = async (object) => {
 const getRecord = async (messageID) => {
     return await suggestions.findOne({ where: { message: messageID } });
 }
-module.exports = { setupID, createRecord, getRecord };
+const updateUsers = async (usersstr, messageID) => {
+    suggestions.update({users: usersstr}, { where: { message: messageID } });
+}
+module.exports = { setupID, createRecord, getRecord, updateUsers };

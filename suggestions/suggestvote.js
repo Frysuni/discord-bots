@@ -1,15 +1,30 @@
 require('dotenv').config();
-const { getRecord } = require('./database.js');
+const { getRecord, updateUsers } = require('./database.js');
 
 async function checker(interaction) {
     const record = await getRecord(interaction.message.id);
-
-    if (interaction.member.user.id != record.get('owner')) {
-        interaction.reply({ content: 'Ты создал это предложение. Голосовать тебе не дано.', ephemeral: true });
+    const users = await record.get('users');
+    const usersarray = (users) ? users.split(' ') : null;
+    if (usersarray != null) {
+        for (let i = usersarray.length - 1; i >= 0; --i) {
+            if (interaction.member.user.id == usersarray[i]) {
+                interaction.reply({ content: 'Ты уже проголосовал, ты не можешь голосовать еще раз.', ephemeral: true });
+                return false;
+            };
+        };
+    };
+    if (interaction.member.user.id == record.get('owner')) {
+        interaction.reply({ content: 'Ты создал это предложение, ты не можешь голосовать сам за себя.', ephemeral: true });
+        return false;
     };
     //if (interaction.member.user.id == record.get('users'))
 }
 
+async function adduser(record, interaction) {
+    const users = await record.get('users');
+    const usersstr = users + ' ' + interaction.member.user.id;
+    updateUsers(usersstr, interaction.message.id);
+}
 async function editmessage(interaction) {
     const record = await getRecord(interaction.message.id);
     const embed = await JSON.parse(record.get('content'));
@@ -19,9 +34,7 @@ async function editmessage(interaction) {
         ...embed,
         fields: [
             ...embed.fields,
-            { name: upvotes, value: '2', inline: true },
-            //{ name: '123', value: '123', inline: true },
-            //{ name: downvotes, value: '🛑', inline: true },
+            { name: `✅** - ${upvotes}**`, value: `🛑** - ${downvotes}**`, inline: false }
         ],
         color: (upvotes > downvotes) ? 2981190 : (upvotes === downvotes) ? 16698446 : 14171198
     };
@@ -32,19 +45,24 @@ async function editmessage(interaction) {
         });
 }
 async function upvote(interaction) {
-    checker(interaction);
-    const record = await getRecord(interaction.message.id);
-    await record.increment('up')
-    editmessage(interaction);
-    interaction.reply({ content: `Ваш голос ЗА был оставлен!`, ephemeral: true})
+    if (await checker(interaction) != false) {
+        const record = await getRecord(interaction.message.id);
+        await record.increment('up')
+        adduser(record, interaction);
+        editmessage(interaction);
+        interaction.reply({ content: `Ваш голос ЗА был оставлен!`, ephemeral: true});
+    };
 }
 
 async function downvote(interaction) {
-    checker(interaction);
-    const record = await getRecord(interaction.message.id);
-    await record.increment('down');
-    editmessage(interaction);
-    interaction.reply({ content: `Ваш голос против был оставлен!`, ephemeral: true})
+    if (await checker(interaction) != false) {
+        checker(interaction);
+        const record = await getRecord(interaction.message.id);
+        await record.increment('down');
+        adduser(record, interaction);
+        editmessage(interaction);
+        interaction.reply({ content: `Ваш голос против был оставлен!`, ephemeral: true});
+    };
 }
 
 module.exports = {
