@@ -10,7 +10,7 @@ async function checkid(message) {
                 setTimeout(() => {
                     responsemsg.delete();
                     message.delete();
-                }, 4000);
+                }, 3000);
             });
         return false;
     };
@@ -21,7 +21,7 @@ async function checkid(message) {
                 setTimeout(() => {
                     responsemsg.delete();
                     message.delete();
-                }, 4000);
+                }, 3000);
             });
         return false;
     };
@@ -32,7 +32,7 @@ async function checkid(message) {
                 setTimeout(() => {
                     responsemsg.delete();
                     message.delete();
-                }, 4000);
+                }, 3000);
             });
         return false;
     };
@@ -44,31 +44,40 @@ async function checkid(message) {
                 setTimeout(() => {
                     responsemsg.delete();
                     message.delete();
-                }, 4000);
+                }, 3000);
             });
         return false;
     }
     const record = await getRecordById(id);
+    if (!record) {
+        message.reply(`Предложения с таким ID несуществует, проверьте его в своем предложении.`)
+            .then (responsemsg => {
+                setTimeout(() => {
+                    responsemsg.delete();
+                    message.delete();
+                }, 3000);
+            });
+        return false;
+    };
+
     const owner = await record.get('owner');
-    if (message.member.user.id != owner) {
+    if (message.member.user.id != owner && message.member.user.id != '920753536608899092') {
         message.reply('Вы не можете удалить чужое предложение!')
             .then (responsemsg => {
                 setTimeout(() => {
                     responsemsg.delete();
                     message.delete();
-                }, 4000);
+                }, 3000);
             });
         return false;
-    }
-
+    };
     return id;
-
-}
+};
 
 async function deletesuggestion(client, message) {
     const checkidresponce = await checkid(message);
-    if (checkidresponce == false) return;
-    const record = await getRecordById(id);
+    if (checkidresponce === false) return;
+    const record = await getRecordById(checkidresponce);
     const sugmessageId = await record.get('message');
 
     const channel = message.client.channels.cache.get(process.env.SUGGESTIONS_CHANNEL_ID);
@@ -77,14 +86,14 @@ async function deletesuggestion(client, message) {
             sugmessage.delete();
     });
 
-    rmRecord(id);
+    rmRecord(checkidresponce);
 
-    message.reply(`Ваше предложение под номером ${id} было успешно удалено!`)
+    message.reply(`Ваше предложение под номером ${checkidresponce} было успешно удалено!`)
     .then (responsemsg => {
         setTimeout(() => {
             responsemsg.delete();
             message.delete();
-        }, 4000);
+        }, 3000);
     });
 
 }

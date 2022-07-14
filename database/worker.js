@@ -49,7 +49,7 @@ const suggestions = sequelize.define('suggestions', {
         type: Sequelize.STRING(1000),
     },
     owner: {
-        type: Sequelize.STRING(20),
+        type: Sequelize.STRING(30),
         primaryKey: true,
     },
 })

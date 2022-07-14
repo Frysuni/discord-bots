@@ -39,7 +39,6 @@ module.exports =  {
         };
         const thismsg = await client.channels.cache.get(process.env.SUGGESTIONS_CHANNEL_ID).send({ embeds: [sugEmbed], components: [votebutton] });
         const jsonsugembed = JSON.stringify(sugEmbed)
-        console.log(sugEmbed);
         objecttodb = {
             id,
             message: thismsg.id,

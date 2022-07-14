@@ -24,12 +24,12 @@ const getRecord = async (messageID) => {
     return await suggestions.findOne({ where: { message: messageID } });
 }
 const getRecordById = async (id) => {
-    return await suggestions.findOne({ where: { id } });
+    return await suggestions.findOne({ where: { id: id } });
 }
 const rmRecord = async (id) => {
     suggestions.destroy({ where: { id } });
 };
 const updateUsers = async (usersstr, messageID) => {
-    suggestions.update({users: usersstr}, { where: { message: messageID } });
+    suggestions.update({users: usersstr}, { where: { id: id } });
 }
 module.exports = { setupID, createRecord, getRecord, updateUsers, rmRecord, getRecordById };
