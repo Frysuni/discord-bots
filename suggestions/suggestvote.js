@@ -14,7 +14,7 @@ async function checker(interaction) {
         };
     };
     if (interaction.member.user.id == record.get('owner')) {
-        interaction.reply({ content: 'Ты создал это предложение, ты не можешь голосовать сам за себя.', ephemeral: true });
+        interaction.reply({ content: 'Ты создал это предложение, ты не можешь за него голосовать.', ephemeral: true });
         return false;
     };
     //if (interaction.member.user.id == record.get('users'))

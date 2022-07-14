@@ -1,12 +1,12 @@
+require('dotenv').config();
 const { start } = require('../suggestions/firstmessage.js');
 const { deletesuggestion } = require('../suggestions/delete.js');
 
 module.exports = (client, message) => {
-    if(message.content === 'ASdjhASDkbASPdiUABFDaosudbASikdaSjkdhASIyASkbDASiydASidyhaSDlybaSdu') {
+    if(message.content === process.env.SECRETSUGGEST) {
         start(client, message);
     };
-    console.log(String(message.content).startWith('!удалить'))
-    /*if( await content.keyword.startWith('!удалить') ) {
+    if(String(message.content).startsWith('!удалить')) {
         deletesuggestion(client, message);
-    };*/
-}
+    };
+};
