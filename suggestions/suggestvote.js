@@ -17,7 +17,6 @@ async function checker(interaction) {
         interaction.reply({ content: 'Ты создал это предложение, ты не можешь за него голосовать.', ephemeral: true });
         return false;
     };
-    //if (interaction.member.user.id == record.get('users'))
 }
 
 async function adduser(record, interaction) {
