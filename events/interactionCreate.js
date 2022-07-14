@@ -2,7 +2,7 @@ const { commandProcess } = require("../utilities/commander.js");
 const { form } = require('../suggestions/suggest.js');
 const { button } = require('./button.js');
 
-module.exports = (client, interaction) => {
+module.exports = async (client, interaction) => {
 	if (interaction.isCommand) {
 		commandProcess(client, interaction);
 	}

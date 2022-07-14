@@ -1,4 +1,5 @@
-const { writebutton } = require("../suggestions/form.js");
+const { writebutton } = require('../suggestions/form.js');
+const { votebuttons } = require('../suggestions/suggestvote.js');
 
 module.exports = {
     async button(client, interaction) {
@@ -6,8 +7,8 @@ module.exports = {
         if (interaction.customId === 'write') {
             writebutton(client, interaction);
         }
-        else if (interaction.customId === 'upvote' || interaction.customId === 'downvote') {
-            votebuttons(client, interaction);
+        else if (interaction.customId === 'upvotebutton' || interaction.customId === 'downvotebutton') {
+            votebuttons(interaction);
         }
 
     },

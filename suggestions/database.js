@@ -20,5 +20,7 @@ const createRecord = async (object) => {
         owner: object.owner,
 })};
 
-
-module.exports = { setupID, createRecord };
+const getRecord = async (messageID) => {
+    return await suggestions.findOne({ where: { message: messageID } });
+}
+module.exports = { setupID, createRecord, getRecord };

@@ -17,7 +17,7 @@ const helpEmbed = new MessageEmbed()
         { name: '`/reactrole`', value: 'Действительно сложная задача, как оказалось' },
         { name: '`Музыкальный бот`', value: 'Там вообще ахуёк!' },
     )
-    .setFooter({ text: 'by Frys', iconURL: 'https://files.fryshost.ru/assets/FrysHostMini.png' })
+    .setFooter({ text: 'Frys', iconURL: 'https://files.fryshost.ru/assets/Frys.png' })
     .setThumbnail('https://files.fryshost.ru/assets/somecode.png');
 
 module.exports = {

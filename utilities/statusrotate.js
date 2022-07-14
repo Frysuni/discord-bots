@@ -1,7 +1,7 @@
 // Это самое тупое говнокодище, Я ЗНАЮ!!!
 let index = 0;
 const list = {
-    'type0': 'COMPETING', 'name0': 'в Норе',
+    'type0': 'COMPETING', 'name0': 'Норе',
     'type1': 'WATCHING', 'name1': 'новые предложения',
     'type2': 'LISTENING', 'name2': '/help',
 };

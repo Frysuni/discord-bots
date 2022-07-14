@@ -28,14 +28,13 @@ module.exports =  {
             { name: '> **Описание:**', value: interaction.fields.getTextInputValue('sug_desc') },
         )
         .setFooter({text:`#${id}`});
-
         const thismsg = await client.channels.cache.get(process.env.SUGGESTIONS_CHANNEL_ID).send({ embeds: [sugEmbed], components: [votebutton] });
+        const jsonsugembed = JSON.stringify(sugEmbed)
+        console.log(sugEmbed);
         objecttodb = {
             id,
             message: thismsg.id,
-            content: thismsg.embeds.MessageEmbed,
-            up: 0,
-            down: 0,
+            content: jsonsugembed,
             owner: interaction.member.user.id,
         };
         createRecord(objecttodb);
