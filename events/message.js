@@ -2,6 +2,7 @@ require('dotenv').config();
 const { Info } = require('../utilities/logger.js');
 const { start } = require('../suggestions/firstmessage.js');
 const { deletesuggestion } = require('../suggestions/delete.js');
+const { endsuggestion } = require('../suggestions/end.js');
 
 module.exports = async (client, message) => {
     if (message.content === process.env.SUGGESTIONS_TRIGGER && message.member.user.id == process.env.ADMIN_ID) {
@@ -11,6 +12,10 @@ module.exports = async (client, message) => {
     if (String(message.content).startsWith('!удалить')) {
         Info(`Удаление предложения вызвано. ${message.member.user.username}: ${message.content}`);
         deletesuggestion(client, message);
+    }
+    if (String(message.content).startsWith('!завершить')) {
+        Info(`Звершение предложения вызвано. ${message.member.user.username}: ${message.content}`);
+        endsuggestion(client, message);
     }
     if (message.content == process.env.AD_TRIGGER && message.member.user.id == process.env.ADMIN_ID) {
         Info('AD_TRIGGER');

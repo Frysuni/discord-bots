@@ -68,7 +68,7 @@ async function checkid(message) {
     }
 
     const owner = await record.get('owner');
-    if (message.member.user.id != owner && message.member.user.id != '920753536608899092') {
+    if (message.member.user.id != owner && message.member.user.id != process.env.ADMIN_ID) {
         Info('!удалить, но Вы не можете удалить чужое предложение!');
         message.reply('Вы не можете удалить чужое предложение!')
             .then (responsemsg => {

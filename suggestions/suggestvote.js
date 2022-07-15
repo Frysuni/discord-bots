@@ -19,9 +19,33 @@ async function checker(interaction) {
     }
 }
 
+async function listuser(record) {
+    const users = await record.get('users');
+    const usersarray = (users) ? users.split(' ') : null;
+    let listusers = '';
+    for (let i = usersarray.length - 1; i >= 0; --i) {
+        if (i === 0) {
+            listusers = listusers + ` <@${usersarray[i]}>.`;
+        }
+        else if (i === (usersarray.length - 1)) {
+            listusers = listusers + `<@${usersarray[i]}>,`;
+        }
+        else {
+            listusers = listusers + ` <@${usersarray[i]}>,`;
+        }
+    }
+    return listusers;
+}
+
 async function adduser(record, interaction) {
     const users = await record.get('users');
-    const usersstr = users + ' ' + interaction.member.user.id;
+    let usersstr = '';
+    if (users == null) {
+        usersstr = interaction.member.user.id;
+    }
+    else {
+        usersstr = users + ' ' + interaction.member.user.id;
+    }
     updateUsers(usersstr, interaction.message.id);
 }
 async function editmessage(interaction) {
@@ -29,11 +53,14 @@ async function editmessage(interaction) {
     const embed = await JSON.parse(record.get('content'));
     const upvotes = await record.get('up');
     const downvotes = await record.get('down');
+    const users = await listuser(record);
+
     const newembed = {
         ...embed,
         fields: [
             ...embed.fields,
             { name: `✅** - ${upvotes}**`, value: `🛑** - ${downvotes}**`, inline: false },
+            { name: 'Уже проголосовали:', value: users, inline: false },
         ],
         color: (upvotes > downvotes) ? 2981190 : (upvotes === downvotes) ? 16698446 : 14171198,
     };

@@ -49,7 +49,7 @@ module.exports = {
         };
         createRecord(objecttodb);
 
-        interaction.reply({ content: `Предложение отправлено успешно!\nЕсли захочешь его убрать - напиши \`!удалить ${id}\` в любой канал.`, ephemeral: true });
+        interaction.reply({ content: `Предложение отправлено успешно!\nЧтобы его удалить - напиши \`!удалить ${id}\` в любой канал.\nЧтобы его завершить - напиши \`!завершить ${id}\` в любой канал.`, ephemeral: true });
         sugEmbed = new MessageEmbed();
     },
 };
