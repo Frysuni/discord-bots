@@ -30,6 +30,6 @@ const rmRecord = async (id) => {
     suggestions.destroy({ where: { id } });
 };
 const updateUsers = async (usersstr, messageID) => {
-    suggestions.update({users: usersstr}, { where: { id: id } });
+    suggestions.update({users: usersstr}, { where: { message: messageID } });
 }
 module.exports = { setupID, createRecord, getRecord, updateUsers, rmRecord, getRecordById };
