@@ -52,6 +52,6 @@ const suggestions = sequelize.define('suggestions', {
         type: Sequelize.STRING(30),
         primaryKey: true,
     },
-})
+});
 
-module.exports = {reactrole, suggestions}
+module.exports = { reactrole, suggestions };

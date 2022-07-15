@@ -10,13 +10,13 @@ async function checker(interaction) {
             if (interaction.member.user.id == usersarray[i]) {
                 interaction.reply({ content: 'Ты уже проголосовал, ты не можешь голосовать еще раз.', ephemeral: true });
                 return false;
-            };
-        };
-    };
+            }
+        }
+    }
     if (interaction.member.user.id == record.get('owner')) {
         interaction.reply({ content: 'Ты создал это предложение, ты не можешь за него голосовать.', ephemeral: true });
         return false;
-    };
+    }
 }
 
 async function adduser(record, interaction) {
@@ -29,13 +29,13 @@ async function editmessage(interaction) {
     const embed = await JSON.parse(record.get('content'));
     const upvotes = await record.get('up');
     const downvotes = await record.get('down');
-    newembed = {
+    const newembed = {
         ...embed,
         fields: [
             ...embed.fields,
-            { name: `✅** - ${upvotes}**`, value: `🛑** - ${downvotes}**`, inline: false }
+            { name: `✅** - ${upvotes}**`, value: `🛑** - ${downvotes}**`, inline: false },
         ],
-        color: (upvotes > downvotes) ? 2981190 : (upvotes === downvotes) ? 16698446 : 14171198
+        color: (upvotes > downvotes) ? 2981190 : (upvotes === downvotes) ? 16698446 : 14171198,
     };
     const channel = interaction.client.channels.cache.get(process.env.SUGGESTIONS_CHANNEL_ID);
     channel.messages.fetch(interaction.message.id)
@@ -46,11 +46,11 @@ async function editmessage(interaction) {
 async function upvote(interaction) {
     if (await checker(interaction) != false) {
         const record = await getRecord(interaction.message.id);
-        await record.increment('up')
+        await record.increment('up');
         adduser(record, interaction);
         editmessage(interaction);
-        interaction.reply({ content: `Ваш голос ЗА был оставлен!`, ephemeral: true});
-    };
+        interaction.reply({ content: 'Ваш голос ЗА был оставлен!', ephemeral: true });
+    }
 }
 
 async function downvote(interaction) {
@@ -60,17 +60,17 @@ async function downvote(interaction) {
         await record.increment('down');
         adduser(record, interaction);
         editmessage(interaction);
-        interaction.reply({ content: `Ваш голос против был оставлен!`, ephemeral: true});
-    };
+        interaction.reply({ content: 'Ваш голос против был оставлен!', ephemeral: true });
+    }
 }
 
 module.exports = {
-    votebuttons(interaction) { 
+    votebuttons(interaction) {
         if (interaction.customId === 'upvotebutton') {
             upvote(interaction);
         }
         else if (interaction.customId === 'downvotebutton') {
             downvote(interaction);
         }
-    }
-}
+    },
+};
