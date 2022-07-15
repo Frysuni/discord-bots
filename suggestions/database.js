@@ -2,7 +2,7 @@ const { suggestions } = require('../database/worker.js');
 
 const setupID = async () => {
     let find;
-    for (let ids = 0; ids != 200 ; ids++) {
+    for (let ids = 1; ids != 200 ; ids++) {
         find = await suggestions.findOne({ where: { id: ids } });
         if ( find == null ) {
             return ids;
