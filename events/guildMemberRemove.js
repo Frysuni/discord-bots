@@ -17,12 +17,12 @@ const timeHumanize = (timestamp) => {
     mounths = mounths ? `${mounths} месяцев ` : '';
     years = years ? `${years} лет ` : '';
 
-    const obj = {years, mounths, days, hours, minutes, seconds};
-    
+    const obj = { years, mounths, days, hours, minutes, seconds };
+
     return obj;
-}
+};
 
 module.exports = async (client, member) => {
     const my = timeHumanize(member.joinedTimestamp);
     client.channels.cache.get(process.env.LEAVE_MSG_CHANNEL_ID).send(`<@${member.user.id}> покинул **Нору**. Он пробыл с нами ровно ${my.years}${my.mounths}${my.days}${my.hours}${my.minutes}${my.seconds} секунд.`);
-}
+};

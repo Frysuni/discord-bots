@@ -17,7 +17,7 @@ const write = new MessageActionRow().addComponents(
         .setEmoji('📨'),
 );
 
-module.exports =  {
+module.exports = {
     async start(client, message) {
         client.channels.cache.get(process.env.SUGGESTIONS_CHANNEL_ID).send({ embeds: [startEmbed], components: [write] });
         message.delete();

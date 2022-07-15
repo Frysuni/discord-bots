@@ -7,5 +7,5 @@ module.exports = {
     async ping(interaction) {
         const sent = await interaction.reply({ content: 'Замер пинга...', fetchReply: true, ephemeral: true });
         interaction.editReply(`Пинг: ${sent.createdTimestamp - interaction.createdTimestamp}мс`);
-    }
-}
+    },
+};

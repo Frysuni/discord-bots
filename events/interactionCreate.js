@@ -1,4 +1,4 @@
-const { commandProcess } = require("../utilities/commander.js");
+const { commandProcess } = require('../utilities/commander.js');
 const { form } = require('../suggestions/suggest.js');
 const { button } = require('./button.js');
 

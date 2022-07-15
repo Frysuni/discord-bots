@@ -27,7 +27,7 @@ module.exports = {
         .setDMPermission(false),
     async help(interaction) {
         interaction.reply({ embeds: [
-            helpEmbed.setDescription(`Привет, ${interaction.member.user.username}! Я бот, разработанный специально для этого сервера. Мы не просто Нора, мы Норка со своей душой и кучкой идиотов рядом.`)
+            helpEmbed.setDescription(`Привет, ${interaction.member.user.username}! Я бот, разработанный специально для этого сервера. Мы не просто Нора, мы Норка со своей душой и кучкой идиотов рядом.`),
         ], ephemeral: true });
     },
 };

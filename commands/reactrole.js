@@ -23,16 +23,8 @@ module.exports = {
         const ReactionID = interaction.options.getString('id_реакции');
         const Role = interaction.options.getRole('роль');
         const MessageID = interaction.options.getString('id_сообщения');
-        interaction.reply({ content: 'Стой! Этого еще нет, так что дальнейшие операции заблокированы во избежании крашей. Короче.. блять да там сложно!!!',  ephemeral: true})
-        
-        //console.log(interaction);
+        interaction.reply({ content: 'Стой! Этого еще нет, так что дальнейшие операции заблокированы во избежании крашей. Короче.. блять да там сложно!!!', ephemeral: true });
 
-        /*interaction.client.channel
-            .fetch(MessageID)
-            .then(message => {
-                message.react(ReactionID);
-            });
-
-        console.log(`${ReactionID} ${Role} ${MessageID}`);*/
+        console.log(`${ReactionID} ${Role} ${MessageID}`);
     },
 };

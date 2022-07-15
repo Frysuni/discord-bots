@@ -13,19 +13,20 @@ const sug_name = new TextInputComponent()
     .setCustomId('sug_name')
     .setLabel('Краткое название идеи')
     .setStyle('SHORT')
-    .setPlaceholder('Реализовать Reaction Roles')
+    .setPlaceholder('Что хотите предложить?')
     .setRequired(true);
 const sug_desc = new TextInputComponent()
     .setCustomId('sug_desc')
-    .setLabel("Развернутое описание")
-    .setStyle('PARAGRAPH');
+    .setLabel('Развернутое описание')
+    .setStyle('PARAGRAPH')
+    .setPlaceholder('*необязательно*');
 const sug_topicRow = new MessageActionRow().addComponents(sug_topic);
 const sug_nameRow = new MessageActionRow().addComponents(sug_name);
 const sug_descRow = new MessageActionRow().addComponents(sug_desc);
 suggest.addComponents(sug_topicRow, sug_nameRow, sug_descRow);
 
-module.exports = { 
+module.exports = {
     async writebutton(client, interaction) {
         interaction.showModal(suggest);
     },
-}
+};

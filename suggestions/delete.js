@@ -13,7 +13,7 @@ async function checkid(message) {
                 }, 3000);
             });
         return false;
-    };
+    }
 
     if (commandarray[0] != '!удалить') {
         message.reply('Неверно введена команда, попробуйте `!удалить {ID}`')
@@ -24,7 +24,7 @@ async function checkid(message) {
                 }, 3000);
             });
         return false;
-    };
+    }
 
     if (commandarray.length == 1) {
         message.reply('Не введен аргумент, попробуйте `!удалить {ID}`')
@@ -35,7 +35,7 @@ async function checkid(message) {
                 }, 3000);
             });
         return false;
-    };
+    }
 
     const id = Number(commandarray[1]);
     if (isNaN(id)) {
@@ -48,9 +48,10 @@ async function checkid(message) {
             });
         return false;
     }
+
     const record = await getRecordById(id);
     if (!record) {
-        message.reply(`Предложения с таким ID несуществует, проверьте его в своем предложении.`)
+        message.reply(`Предложения с ID ${id} несуществует, проверьте его в своем предложении.`)
             .then (responsemsg => {
                 setTimeout(() => {
                     responsemsg.delete();
@@ -58,7 +59,7 @@ async function checkid(message) {
                 }, 3000);
             });
         return false;
-    };
+    }
 
     const owner = await record.get('owner');
     if (message.member.user.id != owner && message.member.user.id != '920753536608899092') {
@@ -70,9 +71,9 @@ async function checkid(message) {
                 }, 3000);
             });
         return false;
-    };
+    }
     return id;
-};
+}
 
 async function deletesuggestion(client, message) {
     const checkidresponce = await checkid(message);
@@ -99,6 +100,4 @@ async function deletesuggestion(client, message) {
 }
 
 
-module.exports = {
-    deletesuggestion
-}
+module.exports = { deletesuggestion };
