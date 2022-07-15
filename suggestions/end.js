@@ -1,6 +1,6 @@
 require('dotenv').config();
 const { Info } = require('../utilities/logger.js');
-const { rmRecord, getRecordById } = require('./database.js');
+const { getRecordById } = require('./database.js');
 
 async function checkid(message) {
     const commandarray = message.content.split(' ');
@@ -126,8 +126,6 @@ async function endsuggestion(client, message) {
     Info('Завершение предложения с ID ' + checkidresponce);
 
     await editmessage(message, checkidresponce);
-
-    rmRecord(checkidresponce);
 
     message.reply(`Ваше предложение под номером ${checkidresponce} было завершено!`)
     .then (responsemsg => {
