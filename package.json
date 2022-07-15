@@ -4,7 +4,8 @@
   "description": "FrysHost Bot on JavaScript",
   "main": "./system/bot.js",
   "scripts": {
-    "startfull": "node ./system/deployslash.js && npm install npm -g && npm install pm2 -g && npm install && pm2 start ecosystem.config.js"
+    "startfull": "npm install npm -g && npm install pm2 -g && npm install && node ./system/deployslash.js && pm2 start ecosystem.config.js",
+    "pminstall": "pm2 start ecosystem.config.js && pm2 save && pm2 startup && pm2 save"
   },
   "author": "Frys",
   "license": "MIT",
