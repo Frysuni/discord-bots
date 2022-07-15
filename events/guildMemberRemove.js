@@ -1,4 +1,5 @@
 require('dotenv').config();
+const { Info } = require('../utilities/logger.js');
 
 const timeHumanize = (timestamp) => {
 
@@ -23,6 +24,7 @@ const timeHumanize = (timestamp) => {
 };
 
 module.exports = async (client, member) => {
+    Info('Event guildMemberRemove');
     const my = timeHumanize(member.joinedTimestamp);
     client.channels.cache.get(process.env.LEAVE_MSG_CHANNEL_ID).send(`<@${member.user.id}> покинул **Нору**. Он пробыл с нами ровно ${my.years}${my.mounths}${my.days}${my.hours}${my.minutes}${my.seconds} секунд.`);
 };

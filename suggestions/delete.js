@@ -1,10 +1,12 @@
 require('dotenv').config();
+const { Info } = require('../utilities/logger.js');
 const { rmRecord, getRecordById } = require('./database.js');
 
 async function checkid(message) {
     const commandarray = message.content.split(' ');
 
     if (commandarray.length > 2) {
+        Info('!удалить, но Введено более 1го аргумента');
         message.reply('Введено более 1го аргумента, попробуйте `!удалить {ID}`')
             .then (responsemsg => {
                 setTimeout(() => {
@@ -16,6 +18,7 @@ async function checkid(message) {
     }
 
     if (commandarray[0] != '!удалить') {
+        Info('!удалить, но Неверно введена команда');
         message.reply('Неверно введена команда, попробуйте `!удалить {ID}`')
             .then (responsemsg => {
                 setTimeout(() => {
@@ -27,6 +30,7 @@ async function checkid(message) {
     }
 
     if (commandarray.length == 1) {
+        Info('!удалить, но Не введен аргумент');
         message.reply('Не введен аргумент, попробуйте `!удалить {ID}`')
             .then (responsemsg => {
                 setTimeout(() => {
@@ -39,6 +43,7 @@ async function checkid(message) {
 
     const id = Number(commandarray[1]);
     if (isNaN(id)) {
+        Info('!удалить, но Аргумент должен быть числом');
         message.reply('Аргумент должен быть числом, попробуйте `!удалить {ID}`')
             .then (responsemsg => {
                 setTimeout(() => {
@@ -51,6 +56,7 @@ async function checkid(message) {
 
     const record = await getRecordById(id);
     if (!record) {
+        Info(`!удалить, но Предложения с ID ${id} несуществует`);
         message.reply(`Предложения с ID ${id} несуществует, проверьте его в своем предложении.`)
             .then (responsemsg => {
                 setTimeout(() => {
@@ -63,6 +69,7 @@ async function checkid(message) {
 
     const owner = await record.get('owner');
     if (message.member.user.id != owner && message.member.user.id != '920753536608899092') {
+        Info('!удалить, но Вы не можете удалить чужое предложение!');
         message.reply('Вы не можете удалить чужое предложение!')
             .then (responsemsg => {
                 setTimeout(() => {
@@ -78,6 +85,7 @@ async function checkid(message) {
 async function deletesuggestion(client, message) {
     const checkidresponce = await checkid(message);
     if (checkidresponce === false) return;
+    Info('Удаление предложения с ID ' + checkidresponce);
     const record = await getRecordById(checkidresponce);
     const sugmessageId = await record.get('message');
 

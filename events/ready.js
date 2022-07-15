@@ -1,3 +1,4 @@
+const { Info } = require('../utilities/logger.js');
 const { suggestions } = require('../database/worker.js');
 const { statusrotate } = require('../utilities/statusrotate.js');
 
@@ -6,5 +7,5 @@ module.exports = async (client) => {
 	suggestions.sync();
 
 	statusrotate(client);
-	console.log('Оо даа, Маквин готов!');
+	Info('Бот запущен');
 };

@@ -1,3 +1,4 @@
+const { Info } = require('../utilities/logger.js');
 const { MessageActionRow, Modal, TextInputComponent } = require('discord.js');
 
 const suggest = new Modal()
@@ -27,6 +28,7 @@ suggest.addComponents(sug_topicRow, sug_nameRow, sug_descRow);
 
 module.exports = {
     async writebutton(client, interaction) {
+        Info('Модалка предложения открыта.');
         interaction.showModal(suggest);
     },
 };

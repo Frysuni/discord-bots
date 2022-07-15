@@ -10,9 +10,9 @@ async function Error(arg) {
     writeFile(`[  Error  ]: ${arg}`);
 }
 
-async function Warning(arg) {
-    construct(`[ Warning ]: ${arg}`);
-    writeFile(`[ Warning ]: ${arg}`);
+async function DEBUG(arg) {
+    construct(`[  DEBUG  ]: ${arg}`);
+    writeFile(`[  DEBUG  ]: ${arg}`);
 }
 
 async function Touch(arg) {
@@ -23,7 +23,7 @@ async function Touch(arg) {
 module.exports = {
     Info,
     Error,
-    Warning,
+    DEBUG,
     Touch,
 };
 
@@ -48,8 +48,9 @@ function writeFile(content) {
 
     const date = new Date().toLocaleDateString();
     const time = new Date().toLocaleTimeString();
-    fs.appendFile('./logs/latest.log', `[ ${date} ][ ${time} ]` + newContent + '\r\n', function(err) {
-        if (err) return Error(err);
+    fs.appendFile('./logs/latest.log', `[ ${date} ][ ${time} ]` + newContent + '\r\n',
+        err => {
+            if (err) return Error(err);
     });
 }
 
