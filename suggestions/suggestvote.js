@@ -2,19 +2,10 @@ const { getRecord, updateUsers } = require('./database.js');
 
 async function checker(interaction) {
     const record = await getRecord(interaction.message.id);
-/*  const users = await record.get('users');
-    const usersarray = (users) ? users.split(' ') : null;
-    if (usersarray != null) {
-        for (let i = usersarray.length - 1; i >= 0; --i) {
-            if (interaction.member.user.id == usersarray[i]) {
-                return 'alreadyVoted';
-            }
-        }
-    }
     if (interaction.member.user.id == record.get('owner')) {
         interaction.reply({ content: 'Ты создал это предложение, ты не можешь за него голосовать.', ephemeral: true });
         return false;
-    }*/
+    }
 }
 
 async function listuser(record) {
@@ -37,7 +28,6 @@ async function listuser(record) {
 }
 
 async function adduser(record, interaction, value) {
-    // let usersobj = {};
     let usersobj = JSON.parse(await record.get('users'));
     const userid = interaction.member.user.id;
     if (!usersobj) {

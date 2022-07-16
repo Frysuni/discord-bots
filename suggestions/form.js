@@ -21,7 +21,7 @@ const sug_desc = new TextInputComponent()
     .setCustomId('sug_desc')
     .setLabel('Развернутое описание')
     .setStyle('PARAGRAPH')
-    .setPlaceholder('*необязательно*');
+    .setPlaceholder('До 1024 символов!');
 const sug_image_url = new TextInputComponent()
     .setCustomId('sug_image_url')
     .setLabel('Ссылка на картинку')
