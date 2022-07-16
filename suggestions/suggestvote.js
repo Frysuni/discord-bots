@@ -1,56 +1,60 @@
-require('dotenv').config();
 const { getRecord, updateUsers } = require('./database.js');
 
 async function checker(interaction) {
     const record = await getRecord(interaction.message.id);
-    const users = await record.get('users');
+/*  const users = await record.get('users');
     const usersarray = (users) ? users.split(' ') : null;
     if (usersarray != null) {
         for (let i = usersarray.length - 1; i >= 0; --i) {
             if (interaction.member.user.id == usersarray[i]) {
-                interaction.reply({ content: 'Ты уже проголосовал, ты не можешь голосовать еще раз.', ephemeral: true });
-                return false;
+                return 'alreadyVoted';
             }
         }
     }
     if (interaction.member.user.id == record.get('owner')) {
         interaction.reply({ content: 'Ты создал это предложение, ты не можешь за него голосовать.', ephemeral: true });
         return false;
-    }
+    }*/
 }
 
 async function listuser(record) {
-    const users = await record.get('users');
-    const usersarray = (users) ? users.split(' ') : null;
+    const users = JSON.parse(await record.get('users'));
+    const usersarray = Object.keys(users);
     let listusers = '';
     for (let i = usersarray.length - 1; i >= 0; --i) {
         if (i === 0) {
-            listusers = listusers + ` <@${usersarray[i]}>.`;
+            listusers += ` <@${usersarray[i]}>.`;
         }
         else if (i === (usersarray.length - 1)) {
-            listusers = listusers + `<@${usersarray[i]}>,`;
+            listusers += `<@${usersarray[i]}>,`;
         }
         else {
-            listusers = listusers + ` <@${usersarray[i]}>,`;
+            listusers += ` <@${usersarray[i]}>,`;
         }
     }
     return listusers;
+
 }
 
-async function adduser(record, interaction) {
-    const users = await record.get('users');
-    let usersstr = '';
-    if (users == null) {
-        usersstr = interaction.member.user.id;
+async function adduser(record, interaction, value) {
+    // let usersobj = {};
+    let usersobj = JSON.parse(await record.get('users'));
+    const userid = interaction.member.user.id;
+    if (!usersobj) {
+        usersobj = {};
+        usersobj[userid] = value;
     }
     else {
-        usersstr = users + ' ' + interaction.member.user.id;
+        usersobj[userid] = value;
     }
+
+    const usersstr = JSON.stringify(usersobj);
+
     updateUsers(usersstr, interaction.message.id);
 }
 async function editmessage(interaction) {
     const record = await getRecord(interaction.message.id);
-    const embed = await JSON.parse(record.get('content'));
+    const embed = JSON.parse(await record.get('content'));
     const upvotes = await record.get('up');
     const downvotes = await record.get('down');
     const users = await listuser(record);
@@ -70,26 +74,62 @@ async function editmessage(interaction) {
             message.edit({ embeds: [newembed] });
         });
 }
+
+async function alreadyVote(interaction, record) {
+    const users = JSON.parse(await record.get('users'));
+    if (!users) return false;
+    if (users[interaction.member.user.id] == 'up') return 'up';
+    if (users[interaction.member.user.id] == 'down') return 'down';
+    return false;
+}
+
 async function upvote(interaction) {
-    if (await checker(interaction) != false) {
-        const record = await getRecord(interaction.message.id);
-        await record.increment('up');
-        adduser(record, interaction);
-        editmessage(interaction);
-        interaction.reply({ content: 'Ваш голос ЗА был оставлен!', ephemeral: true });
+    const check = await checker(interaction);
+    if (check == false) return;
+    const record = await getRecord(interaction.message.id);
+    const checkVote = await alreadyVote(interaction, record);
+    console.log(checkVote);
+    if (checkVote == 'up') {
+        interaction.reply({ content: 'Вы уже проголосовали ЗА.', ephemeral: true });
+        return;
     }
+    if (checkVote == 'down') {
+        record.increment('up');
+        record.decrement('down');
+        adduser(record, interaction, 'up');
+        editmessage(interaction);
+        interaction.reply({ content: 'Вы изменили голос на ЗА.', ephemeral: true });
+        return;
+    }
+    record.increment('up');
+    adduser(record, interaction, 'up');
+    editmessage(interaction);
+    interaction.reply({ content: 'Ваш голос ЗА был оставлен!', ephemeral: true });
 }
 
 async function downvote(interaction) {
-    if (await checker(interaction) != false) {
-        checker(interaction);
-        const record = await getRecord(interaction.message.id);
-        await record.increment('down');
-        adduser(record, interaction);
-        editmessage(interaction);
-        interaction.reply({ content: 'Ваш голос против был оставлен!', ephemeral: true });
+    const check = await checker(interaction);
+    if (check == false) return;
+    const record = await getRecord(interaction.message.id);
+    const checkVote = await alreadyVote(interaction, record);
+    if (checkVote == 'down') {
+        interaction.reply({ content: 'Вы уже проголосовали против.', ephemeral: true });
+        return;
     }
+    if (checkVote == 'up') {
+        record.increment('down');
+        record.decrement('up');
+        adduser(record, interaction, 'down');
+        editmessage(interaction);
+        interaction.reply({ content: 'Вы изменили голос на против.', ephemeral: true });
+        return;
+    }
+    record.increment('down');
+    adduser(record, interaction, 'down');
+    editmessage(interaction);
+    interaction.reply({ content: 'Ваш голос против был оставлен!', ephemeral: true });
 }
+
 
 module.exports = {
     votebuttons(interaction) {

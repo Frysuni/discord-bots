@@ -9,9 +9,9 @@ module.exports = {
             .setDescription('Вставьте ID реакции, которую хотите использовать как кнопку для получения роли.')
             .setRequired(true))
         .addRoleOption(option => option
-            .setName('роль')
-            .setDescription('Выберите роль, которую вы хотите получить, нажав на реакцию.')
-            .setRequired(true))
+                .setName('роль')
+                .setDescription('Выберите роль, которую вы хотите получить, нажав на реакцию.')
+                .setRequired(true))
         .addStringOption(option => option
             .setName('id_сообщения')
             .setDescription('Вставьте ID сообщения, на которую бот поставит реакцию для получения роли.')

@@ -1,111 +1,27 @@
-require('dotenv').config();
-const { Info } = require('../utilities/logger.js');
-const { rmRecord, getRecordById } = require('./database.js');
+const { logger } = require('../utilities/logger.js');
+const { rmRecord, getRecord } = require('./database.js');
 
-async function checkid(message) {
-    const commandarray = message.content.split(' ');
 
-    if (commandarray.length > 2) {
-        Info('!удалить, но Введено более 1го аргумента');
-        message.reply('Введено более 1го аргумента, попробуйте `!удалить {ID}`')
-            .then (responsemsg => {
-                setTimeout(() => {
-                    responsemsg.delete();
-                    message.delete();
-                }, 3000);
-            });
-        return false;
+async function sug_delete(interaction) {
+    logger('Удаление предложения с MessageID: ' + interaction.message.id);
+    const record = await getRecord(interaction.message.id);
+    if (interaction.member.user.id != (await record.get('owner')) && interaction.member.user.id != process.env.ADMIN_ID) {
+        logger('Удаление предложения неуспешно, удалитель не владелец.');
+        interaction.reply({ content: 'Вы не можете удалить чужое предложение!', ephemeral: true });
+        return;
     }
-
-    if (commandarray[0] != '!удалить') {
-        Info('!удалить, но Неверно введена команда');
-        message.reply('Неверно введена команда, попробуйте `!удалить {ID}`')
-            .then (responsemsg => {
-                setTimeout(() => {
-                    responsemsg.delete();
-                    message.delete();
-                }, 3000);
-            });
-        return false;
-    }
-
-    if (commandarray.length == 1) {
-        Info('!удалить, но Не введен аргумент');
-        message.reply('Не введен аргумент, попробуйте `!удалить {ID}`')
-            .then (responsemsg => {
-                setTimeout(() => {
-                    responsemsg.delete();
-                    message.delete();
-                }, 3000);
-            });
-        return false;
-    }
-
-    const id = Number(commandarray[1]);
-    if (isNaN(id)) {
-        Info('!удалить, но Аргумент должен быть числом');
-        message.reply('Аргумент должен быть числом, попробуйте `!удалить {ID}`')
-            .then (responsemsg => {
-                setTimeout(() => {
-                    responsemsg.delete();
-                    message.delete();
-                }, 3000);
-            });
-        return false;
-    }
-
-    const record = await getRecordById(id);
-    if (!record) {
-        Info(`!удалить, но Предложения с ID ${id} несуществует`);
-        message.reply(`Предложения с ID ${id} несуществует, проверьте его в своем предложении.`)
-            .then (responsemsg => {
-                setTimeout(() => {
-                    responsemsg.delete();
-                    message.delete();
-                }, 3000);
-            });
-        return false;
-    }
-
-    const owner = await record.get('owner');
-    if (message.member.user.id != owner && message.member.user.id != process.env.ADMIN_ID) {
-        Info('!удалить, но Вы не можете удалить чужое предложение!');
-        message.reply('Вы не можете удалить чужое предложение!')
-            .then (responsemsg => {
-                setTimeout(() => {
-                    responsemsg.delete();
-                    message.delete();
-                }, 3000);
-            });
-        return false;
-    }
-    return id;
-}
-
-async function deletesuggestion(client, message) {
-    const checkidresponce = await checkid(message);
-    if (checkidresponce === false) return;
-    Info('Удаление предложения с ID ' + checkidresponce);
-    const record = await getRecordById(checkidresponce);
     const sugmessageId = await record.get('message');
 
-    const channel = message.client.channels.cache.get(process.env.SUGGESTIONS_CHANNEL_ID);
+    const channel = interaction.client.channels.cache.get(process.env.SUGGESTIONS_CHANNEL_ID);
     channel.messages.fetch(sugmessageId)
         .then(sugmessage => {
             sugmessage.delete();
     });
 
-    rmRecord(checkidresponce);
-
-    message.reply(`Ваше предложение под номером ${checkidresponce} было успешно удалено!`)
-    .then (responsemsg => {
-        setTimeout(() => {
-            responsemsg.delete();
-            message.delete();
-        }, 3000);
-    });
+    rmRecord(interaction.message.id);
+    interaction.reply({ content: 'Предложение успешно удалено!', ephemeral: true });
 
 }
 
 
-module.exports = { deletesuggestion };
+module.exports = { sug_delete };

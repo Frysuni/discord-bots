@@ -20,7 +20,13 @@ async function Touch(arg) {
     writeFile(`[  Touch  ]: ${arg}`);
 }
 
+async function logger(arg) {
+    construct(`: ${arg}`);
+    writeFile(`: ${arg}`);
+}
+
 module.exports = {
+    logger,
     Info,
     Error,
     DEBUG,
