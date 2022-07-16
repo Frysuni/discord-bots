@@ -1,3 +1,4 @@
+/* eslint-disable no-inline-comments */
 const Sequelize = require('sequelize');
 
 const sequelize = new Sequelize('database', 'user', 'password', {
@@ -7,14 +8,14 @@ const sequelize = new Sequelize('database', 'user', 'password', {
 	storage: './database/database.sqlite',
 });
 
-const reactrole = sequelize.define('reactrole', {
+/* const reactrole = sequelize.define('reactrole', {
     role: Sequelize.STRING,
     reaction: Sequelize.STRING,
     message: Sequelize.STRING(20),
     users: {
         type: Sequelize.STRING(10000),
     },
-});
+});*/
 
 const suggestions = sequelize.define('suggestions', {
     id: {
@@ -47,4 +48,4 @@ const suggestions = sequelize.define('suggestions', {
     },
 }, { timestamps: false });
 
-module.exports = { reactrole, suggestions };
+module.exports = { /* reactrole,*/ suggestions };
