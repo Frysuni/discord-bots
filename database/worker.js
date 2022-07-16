@@ -8,18 +8,11 @@ const sequelize = new Sequelize('database', 'user', 'password', {
 });
 
 const reactrole = sequelize.define('reactrole', {
-    id: {
-        type: Sequelize.INTEGER,
-		unique: true,
-        primaryKey: true,
-    },
-    role: {
-        type: Sequelize.STRING,
-		unique: true,
-    },
-    message: Sequelize.STRING,
+    role: Sequelize.STRING,
+    reaction: Sequelize.STRING,
+    message: Sequelize.STRING(20),
     users: {
-        type: Sequelize.ARRAY(Sequelize.STRING),
+        type: Sequelize.STRING(10000),
     },
 });
 

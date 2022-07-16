@@ -5,8 +5,8 @@ module.exports = {
         .setName('reactrole')
         .setDescription('Reaction Roles')
         .addStringOption(option => option
-            .setName('id_реакции')
-            .setDescription('Вставьте ID реакции, которую хотите использовать как кнопку для получения роли.')
+            .setName('реакция')
+            .setDescription('Вставьте реакцию, которую хотите использовать как кнопку для получения роли.')
             .setRequired(true))
         .addRoleOption(option => option
                 .setName('роль')
@@ -18,13 +18,4 @@ module.exports = {
             .setRequired(true))
         .setDMPermission(false)
         .setDefaultMemberPermissions(0),
-
-    reactrole(client, interaction) {
-        const ReactionID = interaction.options.getString('id_реакции');
-        const Role = interaction.options.getRole('роль');
-        const MessageID = interaction.options.getString('id_сообщения');
-        interaction.reply({ content: 'Стой! Этого еще нет, так что дальнейшие операции заблокированы во избежании крашей. Короче.. блять да там сложно!!!', ephemeral: true });
-
-        console.log(`${ReactionID} ${Role} ${MessageID}`);
-    },
 };

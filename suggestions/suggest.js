@@ -66,7 +66,7 @@ module.exports = {
                 'image': { 'url': image_url },
             };
         }
-        const thismsg = await client.channels.cache.get(process.env.SUGGESTIONS_CHANNEL_ID).send({ embeds: [sugEmbed], components: [votebuttons, workbuttons] });
+        const thismsg = await client.channels.cache.get(process.env.SUGGESTIONS_CHANNEL_ID).send({ content: ':grey_exclamation: **Новое предложение!**', embeds: [sugEmbed], components: [votebuttons, workbuttons] });
         const objecttodb = {
             id,
             message: thismsg.id,

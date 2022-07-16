@@ -61,7 +61,7 @@ async function editmessage(interaction) {
     const channel = interaction.client.channels.cache.get(process.env.SUGGESTIONS_CHANNEL_ID);
     channel.messages.fetch(interaction.message.id)
         .then(message => {
-            message.edit({ embeds: [newembed] });
+            message.edit({ content: '\u200B', embeds: [newembed] });
         });
 }
 

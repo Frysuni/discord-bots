@@ -1,11 +1,18 @@
-const { Info } = require('../utilities/logger.js');
-const { suggestions } = require('../database/worker.js');
+const { logger } = require('../utilities/logger.js');
+const { reactrole, suggestions } = require('../database/worker.js');
 const { statusrotate } = require('../utilities/statusrotate.js');
 
 module.exports = async (client) => {
-	// reactrole.sync();
-	suggestions.sync();
+	require('dotenv').config();
+	if (process.env.FORCE_DATABASES) {
+		reactrole.sync({ force: true });
+		suggestions.sync({ force: true });
+	}
+	else {
+		reactrole.sync();
+		suggestions.sync();
+	}
 
 	statusrotate(client);
-	Info('Бот запущен');
+	logger('Бот запущен');
 };
