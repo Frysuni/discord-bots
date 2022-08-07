@@ -1,4 +1,3 @@
-const { Info } = require('../utilities/logger.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
 
@@ -27,7 +26,6 @@ module.exports = {
 		.setDescription('А что тут есть?')
         .setDMPermission(false),
     async help(interaction) {
-        Info('/help вызвано. ' + interaction.member.user.username);
         interaction.reply({ embeds: [
             helpEmbed.setDescription(`Привет, ${interaction.member.user.username}! Я бот, разработанный специально для этого сервера. Мы не просто Нора, мы Норка со своей душой и кучкой идиотов рядом.`),
         ], ephemeral: true });
