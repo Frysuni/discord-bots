@@ -1,0 +1,39 @@
+{
+  "private": true,
+  "scripts": {
+    "start": "npm install && ts-node -r tsconfig-paths/register ./src/system/bot.ts",
+    "pm2": "npm install -g pm2 && pm2 start ecosystem.config.js -i 4 && pm2 startup && pm2 save",
+    "error": "node utils/maintenance",
+    "dev": "ts-node -r tsconfig-paths/register ./src/system/bot.ts",
+    "build": "npm install && node ./services/build.js",
+    "update": "node ./services/updateDeps.js"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.34",
+    "axios": "^1.2.3",
+    "discord.js": "^14.6.0",
+    "dotenv": "^16.0.3",
+    "env-var": "^7.3.0",
+    "gpt-3-encoder": "^1.1.3",
+    "mysql": "^2.18.1",
+    "nodejs-file-downloader": "^4.10.6",
+    "openai": "^3.1.0",
+    "sharp": "^0.31.3",
+    "tsconfig-paths": "^4.1.0",
+    "typeorm": "^0.3.10",
+    "ws": "^8.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "@types/sharp": "^0.31.1",
+    "@types/targz": "^1.0.1",
+    "@types/ws": "^8.5.3",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "@typescript-eslint/parser": "^5.44.0",
+    "eslint": "^8.28.0",
+    "fs-extra": "^11.1.0",
+    "ssh2-sftp-client": "^9.0.4",
+    "targz": "^1.0.1",
+    "typescript": "^4.9.3"
+  }
+}

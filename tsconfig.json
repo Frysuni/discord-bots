@@ -1,0 +1,37 @@
+{
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "test", "build", "**/*spec.ts"],
+
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": false,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES6",
+    "sourceMap": false,
+    "outDir": "./build/dist",
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "resolveJsonModule": true,
+    "typeRoots": ["node_modules/@types"],
+    "moduleResolution": "node",
+    "paths": {
+      "@logger": ["src/logger"],
+      "@Logger": ["src/logger"],
+      "@guildGet": ["src/utils/guildGet"],
+      "@env": ["src/system/envConfig"],
+      "@client": ["src/system/bot"],
+      "@database": ["src/system/database"],
+      "@handlers/*": ["src/handlers/*"],
+      "@readDir": ["src/utils/readDir"]
+    }
+  }
+}
