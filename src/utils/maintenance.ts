@@ -10,7 +10,7 @@ client.on('interactionCreate', (interaction) => {
 });
 
 (async function() {
-    await client.login('OTk1NjU1ODgwODQwMzM1NDIw.GGE6n4.rEDQfFjG5L4vgNSmXONfBs4POfUJlaoN79dy3E');
+    await client.login('bruh');
     client.user.setPresence({ activities: [{ name: 'maintenance'.toUpperCase(), type: ActivityType.Playing }], status: 'dnd' });
 })();
 
