@@ -1,0 +1,32 @@
+{
+  "exclude": ["node_modules", "test", "dist", "**/*spec.ts"],
+  "include": ["src/**/*.ts"],
+  "watchOptions": {
+    "watchFile": "fixedPollingInterval"
+  },
+  "compilerOptions": {
+    "useDefineForClassFields": true,
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "incremental": false,
+    "outDir": "./dist",
+    "baseUrl": "./src",
+    "skipLibCheck": true,
+    "noImplicitOverride": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "strictBindCallApply": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@env": ["./envConfig"],
+      "~/*": ["./*"]
+    }
+  }
+}
