@@ -1,0 +1,1 @@
+export async function execute() { null; } // Не обязательно, но возможно. В readme описал
